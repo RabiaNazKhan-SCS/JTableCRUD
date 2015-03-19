@@ -17,39 +17,38 @@
 	 <script type="text/javascript">
 	
 			$(document).ready(function(){
-			$('#CustomerTable').jtable({
-				title:'Table of Customer',
+				
+				$('#CustomerTable').jtable({
+					title:'Table of Customer',
+					paging:'true',
+					editinline:{enable:true},
+					actions:{
+						listAction:'rest/Crud/list',
+						createAction:'rest/Crud/create',
+						updateAction:'rest/Crud/update',
+						deleteAction:'rest/Crud/delete',
+						},
 
-				actions:{
-					listAction:'rest/Crud/list',
-					createAction:'Controller?action=create',
-					updateAction:'Controller?action=update',
-					deleteAction:'Controller?action=delete',
-					},
-				fields:{
-					customerId:{
-						title:'Customer ID',
-						key:true,
-						width: '30%'
-					},
-					customerName:{
-						title:'Customer Name',
-						width: '30%'
-					},
-					customerEmail:{
-						title:'Customer email',
-						width: '40%'
-						}
-						
+					fields:{
+						customerId:{
+							title:'Customer ID',
+							key:true,
+							width: '20%'
+						},
+						customerName:{
+							title:'Customer Name',
+							width: '20%'
+						},
+
+						customerEmail:{
+							title:'Customer email',
+							width: '40%'
+							},
 					}
-
-
 				});
 
 			$('#CustomerTable').jtable('load');
-			
-			
-			});
+		});
 </script>
 
 </head>

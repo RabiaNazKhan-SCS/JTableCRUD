@@ -13,7 +13,7 @@ import javax.persistence.Table;
 	@Id
 	@GeneratedValue
 	@Column(name="cust_id")
-	private String customerId;
+	private int customerId;
 	
 	@Column(name="cust_name")
 	private String customerName;
@@ -22,11 +22,11 @@ import javax.persistence.Table;
 	private String customerEmail;
 	
 	
-	public String getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 	
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 	

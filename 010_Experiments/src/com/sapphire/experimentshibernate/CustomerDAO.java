@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -49,4 +50,63 @@ public class CustomerDAO {
 		
 	}
 	
+	public static void delete(int customerId){
+		sessionfactory=getSessionFactory();
+		Transaction transaction=null;
+		try{
+			Session session=sessionfactory.openSession();
+			transaction=session.beginTransaction();
+			//Customer customer=(Customer)session.get(Customer.class, customerId);
+			Query query=session.createQuery("delete from Customer c where c.customerId=:customerId");
+			query.setParameter("customerId",customerId);
+			
+			//System.out.println(customer);
+			//session.delete(customer);
+			transaction.commit();
+			System.out.println("Record is deleted");
+		}catch(HibernateException e){
+			e.printStackTrace();
+			transaction.rollback();
+			System.out.println("Exception in delete method, transaction is rolled back");
+		}
+	}
+	
+	public static void create(String customerName,String customerEmail){
+		sessionfactory=getSessionFactory();
+		Transaction transaction=null;
+		try{
+			Session session=sessionfactory.openSession();
+			transaction=session.beginTransaction();
+			Customer customer=new Customer();
+			customer.setCustomerName(customerName);
+			customer.setCustomerEmail(customerEmail);
+			session.save(customer);
+			transaction.commit();
+			System.out.println("Record is Saved");
+			
+		}catch(HibernateException e){
+			System.out.println("Exception in save method, Transaction is rolled back");
+			e.printStackTrace();
+			transaction.rollback();
+			
+		}
+	}
+
+	public static void update(int customerId,String customerName,String customerEmail){
+		sessionfactory=getSessionFactory();
+		Transaction transaction=null;
+		try{
+			Session session=sessionfactory.openSession();
+			transaction=session.beginTransaction();
+			Customer customer=(Customer)session.get(Customer.class, customerId);
+			customer.setCustomerName(customerName);
+			customer.setCustomerEmail(customerEmail);
+			session.update(customer);
+			transaction.commit();
+		}catch(HibernateException e){
+			System.out.println("Exception in updation, Transaction is rolled back");
+			e.printStackTrace();
+			transaction.rollback();
+		}
+	}
 }
